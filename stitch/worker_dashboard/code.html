@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HaritSettu Worker Dashboard</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Public+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#154212",
+                    "surface-container": "#eceeec",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#e1e3e1",
+                    "on-tertiary-container": "#a4caca",
+                    "surface-container-high": "#e6e9e7",
+                    "primary-container": "#2d5a27",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed": "#002020",
+                    "on-primary-container": "#9dd090",
+                    "tertiary-container": "#325656",
+                    "tertiary-fixed": "#c3eaea",
+                    "inverse-primary": "#a1d494",
+                    "inverse-on-surface": "#eff1ef",
+                    "inverse-surface": "#2e3130",
+                    "surface-container-highest": "#e1e3e1",
+                    "on-surface-variant": "#42493e",
+                    "secondary": "#326b00",
+                    "background": "#f8faf8",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#f8faf8",
+                    "on-tertiary-fixed-variant": "#294c4d",
+                    "on-primary": "#ffffff",
+                    "tertiary": "#1a3f3f",
+                    "on-secondary-fixed": "#0b2000",
+                    "secondary-fixed": "#aef67b",
+                    "on-primary-fixed-variant": "#23501e",
+                    "on-secondary-container": "#357200",
+                    "secondary-fixed-dim": "#93d962",
+                    "primary-fixed-dim": "#a1d494",
+                    "surface-dim": "#d8dad9",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#bcf0ae",
+                    "surface-bright": "#f8faf8",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#191c1b",
+                    "tertiary-fixed-dim": "#a8cece",
+                    "surface-container-low": "#f2f4f2",
+                    "on-secondary-fixed-variant": "#245100",
+                    "error": "#ba1a1a",
+                    "error-container": "#ffdad6",
+                    "on-background": "#191c1b",
+                    "secondary-container": "#aef67b",
+                    "surface-tint": "#3b6934",
+                    "outline": "#72796e",
+                    "on-primary-fixed": "#002201",
+                    "outline-variant": "#c2c9bb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Public Sans"],
+                    "label": ["Public Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-frosted {
+            backdrop-filter: blur(24px);
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        .shadow-ambient {
+            box-shadow: 0 12px 32px -4px rgba(21, 66, 18, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopNavBar -->
+<header class="bg-stone-50/70 dark:bg-zinc-900/70 backdrop-blur-xl fixed top-0 w-full z-50 shadow-sm">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-6 h-16">
+<div class="text-2xl font-extrabold text-emerald-900 dark:text-emerald-400 tracking-tighter font-headline">
+                HaritSettu
+            </div>
+<nav class="hidden md:flex items-center gap-8 font-headline tracking-tight font-bold">
+<a class="text-stone-600 dark:text-stone-400 font-medium hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors" href="/">Citizen</a>
+<a class="text-emerald-900 dark:text-emerald-400 border-b-2 border-emerald-900 dark:border-emerald-400 pb-1 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors" href="/worker.html">Worker</a>
+<a class="text-stone-600 dark:text-stone-400 font-medium hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors" href="/admin.html">Admin</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 text-emerald-900 dark:text-emerald-500">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="relative group cursor-pointer">
+    <div class="flex items-center gap-2">
+        <div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest border border-emerald-500/20">
+            <img alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFKjWOVQs_Hvxs5BdngbvtkS9pSJ9MmFYNGVa1MSNJEYS1Rty-csl5TUIlFPfWAvIONDNhyGTB1La2KUt_XfuxahHH-O7or_rSV7gjQ6QG90oH3-O4_qVE8tLXbPKOL9E3NCtXUrcRWs8_z8BM9QU_DkMLN8dAV8jTG69tRRevQTtS8AKt7CkP4nJ8tn8w_n9TOphFf_2bB4KVVKfJery-F0AWRFsXBg6icOdWG0Tf8Vqsi_4QwU3nAyyDTS-bElfEkK6ZPVB9dZZI" />
+        </div>
+        <span class="font-bold text-sm hidden md:block text-emerald-900 dark:text-emerald-400">Ganesh</span>
+        <span class="material-symbols-outlined text-emerald-900 dark:text-emerald-500 text-sm hidden md:block">expand_more</span>
+    </div>
+    <div class="absolute right-0 mt-2 w-48 bg-surface-container-lowest rounded-xl shadow-lg border border-outline-variant/15 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+        <a href="#" class="block px-4 py-3 text-sm font-semibold hover:bg-surface-container-low transition-colors text-on-surface">Profile</a>
+        <div class="h-px w-full bg-outline-variant/30"></div>
+        <button onclick="alert('Logged out!')" class="w-full text-left block px-4 py-3 text-sm font-bold text-error hover:bg-error-container/20 transition-colors">Logout</button>
+    </div>
+</div>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-12 px-6 max-w-7xl mx-auto">
+<div class="flex flex-col lg:flex-row gap-8">
+<!-- Dashboard Content -->
+<div class="flex-grow space-y-8">
+<header>
+<h1 class="text-4xl font-extrabold font-headline text-primary tracking-tight">Active Collection Tasks</h1>
+<p class="text-on-surface-variant mt-2 text-lg">Managing the organic flow of waste across the ecosystem.</p>
+</header>
+<!-- Task List (Bento-style Grid) -->
+<div id="tasksContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Task Card 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-ambient flex flex-col gap-4 border border-outline-variant/15">
+<div class="flex justify-between items-start">
+<span class="bg-secondary-container text-on-secondary-container text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">In Progress</span>
+<span class="text-on-surface-variant text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span> 10 mins ago
+                            </span>
+</div>
+<div class="flex gap-4">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Reported waste image" class="w-full h-full object-cover" data-alt="High quality photograph of sorted cardboard boxes neatly stacked outdoors near a green space, soft overcast lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpi9E0KUYEry-i0y6YLVfi5biizJGIF8BbAKIg772asTFVQXrhN41-v5EH4mc0nEobhlMtpExGq1Utz0aC6Z_6kIWN-Uzfa5-8a-DDfRaUDXR9cR2uTLSdEeDRYGr9B0_rc5_8Wc671DAeUe8UGjKrR2K6vcDCLO9bPBXDU_7ka3b5ObM3Ws9B0NbnWpiaK7zm8kf-pvgEPnxHWNx1fBHPEAfBOgLw-mQ3gyEu8y16s0LZRNHPAkVzHHYMH_54WFbPm3qaYBuWZbK8"/>
+</div>
+<div class="flex flex-col justify-center">
+<h3 class="font-headline font-bold text-lg text-primary">Dry Recyclables</h3>
+<p class="text-sm text-on-surface-variant">Residential Pickup • 4.2kg est.</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-lg">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="location_on">location_on</span>
+<div>
+<p class="text-sm font-semibold">42 Eco-Valley Road, Sector 4</p>
+<a class="text-xs text-secondary font-bold hover:underline" href="#">View on Map</a>
+</div>
+</div>
+</div>
+<button class="mt-2 w-full py-3 px-6 bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold rounded-xl shadow-md active:scale-95 transition-all">
+                            Mark as Completed
+                        </button>
+</div>
+<!-- Task Card 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-ambient flex flex-col gap-4 border border-outline-variant/15">
+<div class="flex justify-between items-start">
+<span class="bg-surface-container-high text-on-surface text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">Assigned</span>
+<span class="text-on-surface-variant text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span> 45 mins ago
+                            </span>
+</div>
+<div class="flex gap-4">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Reported waste image" class="w-full h-full object-cover" data-alt="Organically compostable waste in a professional bio-degradable bag, placed in a clean urban environment, soft natural daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvSCubhKghPcVBzkWfd_X_zWGxcl6dGNIlc6ttHDwkY1Ii7nJDomrExXTBZW-8XFAPI3WIU0P2n5OXgBN5icaISyYeLHayoMZtyLnuIayoK9K9VyR274FQMzvDc9JIEY80F21v6TPL-Mw1dd4CcO7lihxfW1DTuXUDq2-gIIx3K-oKYjdHu3uE7uQ--_9ZPi6ir-_JyoIjEetXPZocJStLwryMT1IjcblLG-RytksabbLVQFam72IBaK_zJSSX1Goi3EWsmHmHiMtQ"/>
+</div>
+<div class="flex flex-col justify-center">
+<h3 class="font-headline font-bold text-lg text-primary">Bio-Waste Collection</h3>
+<p class="text-sm text-on-surface-variant">Commercial Area • 12kg est.</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-lg">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="location_on">location_on</span>
+<div>
+<p class="text-sm font-semibold">The Green Plaza, Food Court Exit</p>
+<a class="text-xs text-secondary font-bold hover:underline" href="#">View on Map</a>
+</div>
+</div>
+</div>
+<button class="mt-2 w-full py-3 px-6 bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold rounded-xl shadow-md active:scale-95 transition-all">
+                            Mark as Completed
+                        </button>
+</div>
+<!-- Task Card 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-ambient flex flex-col gap-4 border border-outline-variant/15">
+<div class="flex justify-between items-start">
+<span class="bg-surface-container-high text-on-surface text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">Assigned</span>
+<span class="text-on-surface-variant text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span> 1 hr ago
+                            </span>
+</div>
+<div class="flex gap-4">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Reported waste image" class="w-full h-full object-cover" data-alt="Assorted plastic bottles and containers bundled for recycling, studio lighting on a neutral clean background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_Wsl3Ycj0hLZQnWHZ4dApzcfbvky7y__2qOPrTF02qeQQhbc9zSSs4WigbyFNkunH5L3iegUE2TnmECgeK1mlI4hFDVYJAZHEAPHcVU09Ewqr3e5vA0KySIWD0NaAWZBgDu-KnkpRRh3E3xv5ATyV1uMMEYM01Y3-xyI3rRSnR3GdL8YjbYjqdQsDmYTs64EX3o_4EHauTBTfwdxJbJQSaMISZJM0XZD12-uTipu9i2r6LoQiGprI5gZL8kaVduwuVX7-7H2Q52Rl"/>
+</div>
+<div class="flex flex-col justify-center">
+<h3 class="font-headline font-bold text-lg text-primary">Plastic Reprocessing</h3>
+<p class="text-sm text-on-surface-variant">Community Hub • 8kg est.</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-lg">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="location_on">location_on</span>
+<div>
+<p class="text-sm font-semibold">B-12, Heritage Apartments</p>
+<a class="text-xs text-secondary font-bold hover:underline" href="#">View on Map</a>
+</div>
+</div>
+</div>
+<button class="mt-2 w-full py-3 px-6 bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold rounded-xl shadow-md active:scale-95 transition-all">
+                            Mark as Completed
+                        </button>
+</div>
+<!-- Map Preview Card (Contextual) -->
+<div class="relative bg-surface-container-high rounded-xl overflow-hidden min-h-[300px] border border-outline-variant/15 md:col-span-1">
+<img alt="Map view" class="w-full h-full object-cover" data-alt="Abstracted minimal map showing clean city grid with green park areas and small collection pins, editorial style" data-location="New Delhi" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEfdYQlxH7gyD4DDVSZ3_gIiL7cbtwdC-ZLdyKPsKHJGwGU9wmsTYr3eBx8OgUZyqK-wgfSZGzgQiIxiNIgAh0IO9p9nqhaNo4scHsZwfC7ZaNy2hK0ADb9mH1X8wOECmDcr8Oe9m83lQCnoiGXjtgE4BXb8-gIAdIrZznUG457xq4B34kmoEYwqhuVj-RVJCdDzqEzVY7d3sJ61fkRdmT7RK7k2twP-9RjfKXu-IGiRJVNLVUAJqebrQV6gkHIXozPvMXIQzpCD9M"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent"></div>
+<div class="absolute bottom-6 left-6 right-6">
+<p class="text-white font-headline font-bold text-xl leading-tight">Optimized Route Active</p>
+<p class="text-white/80 text-sm">3.2km to next destination</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar Stats -->
+<aside class="w-full lg:w-80 space-y-6">
+<!-- Impact Stats Card -->
+<div class="bg-surface-container-low p-8 rounded-xl border border-outline-variant/15">
+<h2 class="font-headline font-bold text-2xl text-primary mb-6">Today's Impact</h2>
+<div class="space-y-6">
+<div class="flex flex-col gap-1">
+<span class="text-sm text-on-surface-variant font-medium">Tasks today</span>
+<div class="flex items-baseline gap-2">
+<span id="tasksTodayCount" class="text-5xl font-extrabold font-headline text-primary">12</span>
+<span class="text-secondary font-bold text-sm">+2 from yesterday</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-sm text-on-surface-variant font-medium">Completed</span>
+<div id="tasksCompletedCount" class="text-5xl font-extrabold font-headline text-primary">8</div>
+</div>
+<!-- Growth Progress Bar -->
+<div class="space-y-2 pt-4">
+<div class="flex justify-between text-xs font-bold text-primary uppercase tracking-widest">
+<span>Efficiency</span>
+<span>66%</span>
+</div>
+<div class="h-3 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-secondary to-primary-container rounded-full" style="width: 66%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Environmental Insight -->
+<div class="bg-primary text-on-primary p-8 rounded-xl relative overflow-hidden">
+<span class="material-symbols-outlined text-on-primary-container text-6xl absolute -right-4 -bottom-4 opacity-20" data-icon="eco">eco</span>
+<h3 class="font-headline font-bold text-xl mb-2">Eco Performance</h3>
+<p class="text-on-primary-container text-sm leading-relaxed">Your collection today has diverted <span class="font-bold text-white">42kg</span> of waste from landfills. You are in the top 5% of efficient workers.</p>
+</div>
+<!-- Recent History -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/15">
+<h4 class="font-headline font-bold text-lg text-primary mb-4">Activity Log</h4>
+<ul id="activityLog" class="space-y-4">
+<li class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<p class="text-sm"><span class="font-semibold">Completed:</span> Plastic at Sector 5</p>
+</li>
+<li class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<p class="text-sm"><span class="font-semibold">Completed:</span> Bio at Park Way</p>
+</li>
+<li class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+<p class="text-sm text-on-surface-variant">Started Shift at 08:00 AM</p>
+</li>
+</ul>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-stone-100 dark:bg-zinc-950 w-full py-12 px-6">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8 font-public-sans text-sm tracking-normal">
+<div class="space-y-2">
+<div class="font-manrope font-bold text-emerald-900 dark:text-emerald-500 text-lg">HaritSettu</div>
+<p class="text-stone-500 dark:text-stone-400">© 2024 HaritSettu. Engineering a Digital Ecosystem.</p>
+</div>
+<nav class="flex flex-wrap gap-8 text-stone-500 dark:text-stone-400">
+<a class="hover:underline decoration-emerald-500/30 underline-offset-4 transition-all" href="#">Impact Stats</a>
+<a class="hover:underline decoration-emerald-500/30 underline-offset-4 transition-all" href="#">Privacy Policy</a>
+<a class="hover:underline decoration-emerald-500/30 underline-offset-4 transition-all" href="#">Guidelines</a>
+</nav>
+</div>
+</footer>
+<script>
+    async function loadTasks() {
+        try {
+            const res = await fetch('/reports');
+            const reports = await res.json();
+            
+            const tasksContainer = document.getElementById('tasksContainer');
+            
+            // clear previously loaded dynamically added cards (keep map)
+            Array.from(tasksContainer.children).forEach(child => {
+                if(child.classList.contains('task-card')) {
+                    child.remove();
+                }
+            });
+            // remove static mock cards (anything that is not the Map Preview and not our dynamic cards)
+            Array.from(tasksContainer.children).forEach(child => {
+                if(!child.classList.contains('task-card') && !child.innerHTML.includes('Map view')) {
+                    child.remove();
+                }
+            });
+
+            let pendingCount = 0;
+            let completeCount = 0;
+            
+            reports.forEach(report => {
+                if (report.status === 'Completed') {
+                    completeCount++;
+                } else {
+                    pendingCount++;
+                    const card = document.createElement('div');
+                    card.className = 'task-card bg-surface-container-lowest p-6 rounded-xl shadow-ambient flex flex-col gap-4 border border-outline-variant/15';
+                    
+                    const timeAgo = Math.floor((Date.now() - report.timestamp) / 60000) || 1;
+                    
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start">
+                            <span class="bg-secondary-container text-on-secondary-container text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">${report.status}</span>
+                            <span class="text-on-surface-variant text-sm flex items-center gap-1">
+                                <span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span> ${timeAgo} mins ago
+                            </span>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container-high">
+                                ${report.imageUrl ? \`<img src="\${report.imageUrl}" class="w-full h-full object-cover"/>\` : \`<span class="material-symbols-outlined w-full h-full flex items-center justify-center text-on-surface-variant">image</span>\`}
+                            </div>
+                            <div class="flex flex-col justify-center">
+                                <h3 class="font-headline font-bold text-lg text-primary">\${report.wasteType}</h3>
+                                <p class="text-sm text-on-surface-variant">Reported by: \${report.reporterName}</p>
+                            </div>
+                        </div>
+                        <div class="bg-surface-container-low p-4 rounded-lg">
+                            <div class="flex items-start gap-2">
+                                <span class="material-symbols-outlined text-secondary" data-icon="location_on">location_on</span>
+                                <div>
+                                    <p class="text-sm font-semibold">\${report.location}</p>
+                                    <p class="text-xs text-secondary mt-1">\${report.description}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="markComplete('\${report.id}')" class="mt-2 w-full py-3 px-6 bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold rounded-xl shadow-md active:scale-95 transition-all">
+                            Mark as Completed
+                        </button>
+                    `;
+                    tasksContainer.insertBefore(card, tasksContainer.firstChild);
+                }
+            });
+            
+            if (pendingCount === 0) {
+                const emptyMsg = document.createElement('div');
+                emptyMsg.className = 'task-card md:col-span-2 flex items-center justify-center py-12 rounded-xl bg-surface-container-lowest text-on-surface-variant font-medium text-lg border border-outline-variant/15';
+                emptyMsg.innerText = 'No tasks available';
+                tasksContainer.insertBefore(emptyMsg, tasksContainer.firstChild);
+            }
+
+            document.getElementById('tasksTodayCount').innerText = pendingCount + completeCount;
+            document.getElementById('tasksCompletedCount').innerText = completeCount;
+            
+        } catch (err) {
+            console.error('Failed to load tasks', err);
+        }
+    }
+
+    async function markComplete(id) {
+        try {
+            const res = await fetch('/complete/' + id, { method: 'POST' });
+            if (res.ok) {
+                loadTasks();
+            }
+        } catch (err) {
+            console.error('Error updating task', err);
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadTasks);
+</script>
+</body></html>
